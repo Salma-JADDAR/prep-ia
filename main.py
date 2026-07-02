@@ -1,13 +1,18 @@
-from src.utils import load_csv, filter_by_min_score, average_score, summarize
+from src.dataset import CsvDataset
+
 
 if __name__ == "__main__":
-    records = load_csv("data/sample.csv")
+    ds = CsvDataset("Étudiants")
 
-    print("Total records:", len(records))
+    ds.load_from_csv("data/sample.csv")
 
-    passed = filter_by_min_score(records, min_score=10)
+    print("Dataset:", ds)
+    print("Total records:", ds.row_count)
+
+    passed = ds.filter_by_column("score", 10)
+
     print("Admis (score >= 10):", len(passed))
 
-    print("Average score:", average_score(records))
+    print("Columns:", ds.columns)
 
-    print("Résumé:", summarize(records))
+    print("Résumé:", ds.summary())
